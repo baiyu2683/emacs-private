@@ -1,0 +1,15 @@
+* org-mode
+** TODO learn 234
+DEADLINE: <2016-05-16 周一 23:05>
+** TODO learn 123
+** TODO learn 345
+** TODO programe
+*直接在代码块中执行C-c C-c可以输出执行结果到下面*
+#+BEGIN_SRC python :results output
+#coding=utf-8
+print '张恒';
+#+END_SRC
+
+#+RESULTS:
+: 张恒
+

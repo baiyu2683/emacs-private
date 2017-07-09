@@ -1,0 +1,3 @@
+#+TITLE:说明
+#+DATE:<2016-04-25 周一>
+这里是之前用过的emacs配置，之前用的是prelude，现在用spacemacs,目前是在跟着子龙山人的21天emacs学习教程第二季学习,emacs-lisp暂时没时间整块学习.

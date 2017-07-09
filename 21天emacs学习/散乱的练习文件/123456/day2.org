@@ -1,0 +1,49 @@
+* Spacemacs Rocks Episode 2 (Day two)
+** Fixes some annoying stuff
+1. make cursor style to bar
+2. disable backup file
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-files nil)
+#+END_SRC
+user C-' to open another buffer to edit source code.
+Make source code fancy in the org files
+#+BEGIN_SRC emacs-lisp
+  (require 'org)
+  (setq org-src-fontify-natively t)
+#+END_SRC
+
+快捷键:<s TAB,自动出现src代码快如下，语言自己写
+#+BEGIN_SRC 
+
+#+END_SRC
+** Make Emacs more fancy （C-x C-e直接运行命令）
+1. Open with fullscreen
+#+BEGIN_SRC emacs-lisp
+(setq initial-frame-alist (quote ((fullscreen , maximized))))
+#+END_SRC
+
+2. show match parents
+#+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-lisp-mode-hook 'show-parent-mode)
+#+END_SRC
+
+3. Highlight current line (global-hl-line-mode)
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
+#+END_SRC
+
+
+M-x customize-group 可以自定义某个mode 的属性
+
+org-mode 列表中使用快捷键M-<RETURN> 可以自动修正列表前面的序号
+** Setup a javascript IED
+js2-mode
+安装nodejs
+运行M-x ndejs-repl运行js文件
+
+** Org-mode
+1. org-agenda记录每天的日程
+需要一个*.org文件
+C-c C-s添加SCHEDULE
+C-c C-d添加DEADLINE
+C-c a选择org-agenda中相关的命令，就可以列出相关的内容

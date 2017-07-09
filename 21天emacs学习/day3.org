@@ -1,0 +1,19 @@
+** 一些配置
+1. 文件修改后让emacs自动加载最新的 (global-auto-revert-mode t)
+2. 禁止自动保存 (setq auto-save-default nil)
+3. 打开新窗口时自动将光标移动到新窗口 
+   需要安装popwin
+   (require 'popwin)
+   (popwin-mode t)
+   注意:这里需要先require是因为函数popwin-mode不是autoload的，可以按C-h C-f跳转到函数定义处查看，这是一个普通函数，不是autoload的
+4. 自定义一些快捷输入
+   场景:company补全会将整个字符串都补全，如之前输入过"zhangheng/package",当你想只输入zhangheng时，自动补全会补全zhangheng/package
+   此时只能讲zhangheng输入完整，很浪费时间
+   解决方案:
+   (abbrev-mode t)
+   (define-abbrev-table 'global-abbrev-table '(
+            ("8zl" "zilongshanren")
+    ))
+    此时再输入8zl <RETURN>就会自动补全为zilongshanren
+** 一些快捷键
+1. C-h C-f跳转到函数定义

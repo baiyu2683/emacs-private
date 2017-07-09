@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<!-- saved from url=(0020)http://emacsist.com/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Emacs, Emacsist">
+    <meta name="description" content="分享交流使用 Emacs ,  构建中文 Emacs 爱好者社区.">
+    <meta name="keywords" content="Emacs,elisp,Emacsist,Emacs Lisp,Hick">
+    <meta name="author" content="Hick">
+    <meta name="baidu-site-verification" content="Nk0zamP1uV">
+
+    <link rel="icon" href="http://emacsist.com/favicon.ico">
+
+    <title>Emacs &amp; Emacsist</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./Emacs &amp; Emacsist_files/bootstrap.v3.css" rel="stylesheet">
+    <link href="./Emacs &amp; Emacsist_files/rube.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Emacs &amp; Emacsist_files/bootstrap-theme.v3.css">
+    <link rel="alternate" type="application/rss+xml" title="Emacs &amp; Emacsist BY Hick" href="http://emacsist.com/rss">
+
+    <script type="text/javascript" async="" defer="" src="./Emacs &amp; Emacsist_files/piwik.js"></script><script src="./Emacs &amp; Emacsist_files/jquery.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+     a {
+         color: black;
+     }
+     table, tr, td, body{font-family:'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
+     .header {
+         font-size:200%;
+         text-align: center;
+         /* font-family: Impact; */
+     }
+     .title {
+         font-size:100%;
+         /*font-weight:bold;*/
+     }
+     .date {
+         color: #aaaaaa;
+         font-size:100%;
+         font-family: Impact;
+         background-color: #fafafa;
+     }
+     .grey {color: #cccccc; font-size:75%;}
+     .title_line {
+         border-bottom: 1px dotted #ddd;
+         padding: 4px;
+     }
+     .title_line:hover {
+         /* background-color: red; */
+         background-color: #f7f7f7;
+     }
+     .tag {
+         /* background-color: #eee; */
+         border-bottom: 1px solid #ddd;
+         border-radius: 4px;
+         font-size:85%;
+         padding: 3px;
+     }
+     .author {
+         color: grey;
+     }
+
+
+     li.list_done {
+     }
+     li.list_ing {
+         font-weight: bold;
+     }
+     li.list_todo {
+         color: #bbb;
+     }
+
+     /* 小于 600 的屏幕 */
+     @media screen and (max-width: 600px) {
+         .left-column {
+             text-align: left;
+         }
+     }
+
+     /* 超过 1024 的宽屏 */
+     @media screen and (min-width: 1024px) {
+         .left-column {
+             text-align: right;
+         }
+         /* 时间的样式 */
+         .left-column small.grey {
+             position: relative;
+             float: right;
+             right: 0px;
+             top: 3px;
+         }
+         /* 标题右侧留出日期的空间 */
+         .left-column span.title {
+             margin-right: 5px;
+         }
+     }
+    </style><script type="text/javascript">
+             var _paq = _paq || [];
+             _paq.push(['trackPageView']);
+             _paq.push(['enableLinkTracking']);
+             (function() {
+                 var u="//emacsist.com/piwik/";
+                 _paq.push(['setTrackerUrl', u+'piwik.php']);
+                 _paq.push(['setSiteId', 1]);
+                 var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                 g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+             })();
+    </script></head>
+    <!-- / 自定义样式 -->
+    
+
+    <!-- Piwik -->
+
+    <body><noscript>&lt;p&gt;&lt;img src="//emacsist.com/piwik/piwik.php?idsite=1" style="border:0;" alt="" /&gt;&lt;/p&gt;</noscript>
+        <!-- End Piwik Code -->
+
+
+        
+
+
+
+
+        <div class="container">
+
+            <!-- /页头   -->
+            <div class="row header">
+                <div class="col-md-5 col-md-offset-2 col-xs-12" style="padding-top: 10px;">
+                    <strong id="title"> <a href="http://emacsist.com/">Emacsist</a></strong>
+                    <small><a href="http://emacsist.com/rss" target="_blank" style="font-size:10px;">RSS</a></small>
+
+                    <small><span style="font-size:10px;">  --- If never, make it ever:  <code>C-h C-h</code> </span></small>
+                </div>
+            </div>
+
+            <div class="row" style="padding-bottom: 10px;">
+                <!-- 左侧最新更新: 因为右侧的动态可能需要显示主标题和副标题等更多信息, 所以不大好放左侧; 解决 w3m 和更新的问题可以考虑根据 ua 定制或者减少左侧条数 -->
+                <div class="col-md-4 col-xs-12 left-column">
+
+                    <div class="title_line">
+                        <strong> 推荐文章</strong>
+                    </div>
+
+                    
+                    <div class="title_line date">
+                        2016-04-24                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">23:19</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10861" data-wid="7461">selected.el - Keymap for when region is active</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-22                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">04:03</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10848" data-wid="7429">displays available keybindings in popup</a>
+                        </span>
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">03:25</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10845" data-wid="7425">[译] Emacs Lisp 速成</a>
+                        </span>
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">02:59</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10838" data-wid="7412">Running Emacs on Android</a>
+                        </span>
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">02:55</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10837" data-wid="7411">Introduction to Emacs modules</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-21                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">01:38</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10825" data-wid="7388">Emacs as C++ IDE</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-03-18                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">13:12</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10801" data-wid="7331">Emacs completion for launching desktop apps.</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-01-22                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">23:37</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10692" data-wid="7118">XWidget support maybe in Emacs 25.1</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-01-15                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">13:01</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10674" data-wid="7081">Pimp Up Your Org-mode Files</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-01-04                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">23:49</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10649" data-wid="7045">Spacemacs 0.105 : new layouts system</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2015-12-12                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">01:07</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10594" data-wid="6953">从 Vim 迁移到 Emacs 扩展集合 Spacemacs</a>
+                        </span>
+                    </div>
+                    
+
+                    
+                    <div class="title_line date" style="display: none;">
+                        2015-12-04                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">13:23</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10576" data-wid="6929">9 Elfeed Features You Might Not Know</a>
+                        </span>
+                    </div>
+                    
+
+                    
+
+                    <div class="title_line">
+                        <strong><a href="http://emacsist.com/list/2/rec">查看更多</a></strong>
+                    </div>
+
+
+                </div>
+
+
+                <!-- 左侧精华 -->
+                <div class="col-md-7 col-xs-12 right-column">
+
+                    <div class="title_line">
+                        <strong> 参考阅读</strong>
+                    </div>
+
+                    
+                    <div class="title_line date">
+                        2016-05-13                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">01:33</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10870" data-wid="7476">Emacs Right Click Context menu</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/zonuexe" class="author">zonuexe</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-05-12                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">02:09</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10869" data-wid="7475">Emacs Keyboard Design 28: Simple Seven</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Grant%20Rettke" class="author">Grant Rettke</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">02:04</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10868" data-wid="7473">Disable Mouse only inside Emacs</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/EndlessParenthese" class="author">EndlessParenthese</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">02:03</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10867" data-wid="7472">Show Magit Status window in fullscreen</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Sebastian%20Wiesner" class="author">Sebastian Wiesner</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-29                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">00:41</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10866" data-wid="7471">fill-single-char-nobreak-p</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Marcin%20Borkowski" class="author">Marcin Borkowski</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-28                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">02:36</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10865" data-wid="7469">Ivy 0.8.0 is out</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Oleh" class="author">Oleh</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">02:36</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10864" data-wid="7468">ANSI-colors in the compilation buffer output</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/EndlessParenthese" class="author">EndlessParenthese</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">01:50</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10863" data-wid="7466">Blogging with Orgmode</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/John%20Louis%20Del%20Rosario" class="author">John Louis Del Rosario</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-26                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">22:21</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10862" data-wid="7465">2016-04-25 Emacs News</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Sacha%20Chua" class="author">Sacha Chua</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-24                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">23:14</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10860" data-wid="7459">The conditional-save-excursion macro</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Marcin%20Borkowski" class="author">Marcin Borkowski</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">23:13</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10859" data-wid="7458">Org-babel-tangle building a hugo blog</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/cpb83%20" class="author">cpb83 </a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    <div class="title_line">
+                        <small class="grey">15:29</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10858" data-wid="7455">Quickly move a downloaded file to the current directory</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/Pragmatic%20Emacs" class="author">Pragmatic Emacs</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line date">
+                        2016-04-22                    </div>
+
+                    <div class="title_line">
+                        <small class="grey">05:30</small>
+
+                        <span class="title">
+                            <a target="_blank" href="http://emacsist.com/10857" data-wid="7454">Sending SMS messages from Emacs on Android</a>
+                            @<a target="_blank" href="http://emacsist.com/list/author/cpb83" class="author">cpb83</a>
+                        </span>
+
+                        <!-- <a href="symfony" class="tag">Emacs</a> -->
+                    </div>
+                    
+
+                    
+                    <div class="title_line">
+                        <strong><a href="http://emacsist.com/list/2/com">查看更多</a></strong>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /推荐数据 -->
+
+
+
+            <!-- 页尾 -->
+            <div class="row">
+                <div class="col-md-10 col-xs-12" style="padding: 10px; text-align: left;">
+                    <br>
+                    <span style="color:red">乐于分享</span>欢迎加入 Emacs 微信群: 微信扫描左侧二维码加 Hick 微信, <span style="color:red">说明"加Emacs群"</span>;  <br>
+                    喜欢默默关注的同学可以关注公众账号: Emacsist (或右侧二维码) <br>
+                    <div class="col-md-6"><img src="./Emacs &amp; Emacsist_files/weixin.gif" alt="emacsist.com Emacs 微信群" style="max-width: 165px;"></div>
+                    <div class="col-md-6"><img src="./Emacs &amp; Emacsist_files/emacs.jpg" alt="emacsist.com Emacs 微信公众账号二维码" style="max-width: 165px; text-right"><br><br><br><br></div>
+
+                    <br>
+                    <br>
+                    欢迎访问 <a href="http://emacsist.com/">Emacsist.com</a>  查看 Emacs 中英文圈内的 blog/资讯 等.<br><br>
+                    微信群附加说明:<br>
+
+                    <ul>
+                        <li>微信扫描二维码加的是 Hick 的微信, <span style="color:red">说明"加Emacs群", 会拉你进 Emacs 微信群</span></li>
+                        <li>对"<span style="color:red">乐于分享</span>交流而不只是想问问题的 Emacs 爱好者", 欢迎加入; 退出自由 </li>
+                        <li>进去<span style="color:red">不用报到</span>, 不追求人多和热闹,  追求尽可能的实用: 不满足上条的进来了也会被很带感的踢出去的, 慎入!</li>
+                        <li>仅限讨论交流 Emacs 相关话题</li>
+                        <li>建议但是不限制: 移动版微信阅读, PC版或者网页版参与讨论</li>
+                        <li>有时候微信群消息多太骚扰, 可以考虑临时在群设置中开启免打扰模式</li>
+                        <li>喜欢热闹的同学可以加超过700号人的 QQ 群: 59134186</li>
+                        <li>微博的 <a href="http://huati.weibo.com/k/Emacs" target="_blank">#Emacs#</a> 话题也是一种分享交流方式, 注意 Emacs 首字母大写</li>
+                    </ul>
+                    也欢迎到 Hick 同学在主持的微博话题进行交流:  <a href="http://huati.weibo.com/k/Emacs" target="_blank">http://huati.weibo.com/k/Emacs</a><br>
+
+                    <br>
+                    <br>
+
+                    <span>广而告之, 本站 RoadMap</span>
+                    <hr>
+                    <strong>主旨: 分享和交流使用 Emacs , 享受自由学习和折腾的乐趣.</strong>
+                    <br>
+                    <br>
+                    <ul>
+                        <li class="list_done">p0 done@2015-03-28 按照两列罗列推荐文章和 Emacs 圈里的文章</li>
+                        <li class="list_done">p0 done@2015-03-28 支持 eww 访问</li>
+                        <li class="list_ing">p1 ing 支持简单的登录系统</li>
+                        <li class="list_ing">p1 ing eww 上的 minor-mode: emacsist-mode</li>
+                        <li class="list_ing">p1 ing emacsist-mode 支持类 v2ex 的 append 和 comment(仅登录用户)</li>
+                        <li class="list_ing">p1 ing emacsist-mode 支持一键推荐 emacs 文章(暂不支持自由发文讨论)</li>
+                        <li class="list_todo">p2 emacsist-mode 定时检查有最新回复和更新; 针对访问时间以及是否查看分别标示</li>
+                        <li class="list_todo">p3 支持个性定制频率等邮件订阅和讨论(邮件组), 最低一年一次邮件, 智能调整频率</li>
+                        <li class="list_todo">p4 分中文和英文介绍 Emacs 圈的同学以及事迹, 罗列 blog 等</li>
+                        <li class="list_todo">p5 支持分 tag(label@github), reddit 分子版块查看, 考虑设版块管理员机制</li>
+                        <li class="list_todo">p5 支持5级的难度和5级的(质量)评分</li>
+                        <li class="list_todo">p5 建立登录账户等级机制, 适当等级允许提问</li>
+                        <li class="list_todo">p6 重点优化下网页访问, 包括首页 js/css 等的加载速度等</li>
+                        <li class="list_todo">p7 整理下本站相关代码(in PHP CodeIgniter)并开源和邀请参与</li>
+                        <li class="list_todo">p8 以 gif 动画和视频演示为切入点, 推荐 mode 的使用实践</li>
+                        <li class="list_todo">p20 支持文章的评级等各种文章质量评估, 直接影响回复是否被顶起</li>
+                        <li class="list_todo">p100 emacsist-mode 结合 org 或 outline , 根据标题等自动控制显示</li>
+                        <li class="list_todo">p101 以 better practices/workflow 方式推荐和讨论使用实践组合</li>
+                        <li class="list_todo">p102 类似 p101 的专题比如 php 开发方式推荐 实践组合</li>
+                        <li class="list_todo">p200 本站一开始是 Hick 同学维护, 可行的话希望后边定好规则大家一起来运作</li>
+                        <li class="list_todo">p222...  A huge wave of ideas is coming</li>
+                    </ul>
+
+
+                    <strong><img src="./Emacs &amp; Emacsist_files/copyleft.png" alt="COPYLEFT">The articles on this site come from Internet, thanks to all the original authors.<br>
+                        &nbsp; &nbsp; &nbsp; If anything about COPYRIGHT, or LEFT, please contact Emacsist at gmail dot com .</strong>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <!-- Bootstrap core JavaScript
+             ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="./Emacs &amp; Emacsist_files/bootstrap.js"></script>
+        <script type="text/javascript">
+         // 若果左右有超过 20 条的情况, 自动隐藏最后一条的日期
+         if ($("div.left-column .title_line").length > 22) {
+             $("div.left-column .date:last").hide();
+         };
+         if ($("div.right-column .title_line").length > 22) {
+             $("div.right-column .date:last").hide();
+         };
+
+        </script>
+
+        <span style="display:none;">
+            <script src="./Emacs &amp; Emacsist_files/stat.php" language="JavaScript"></script><script src="./Emacs &amp; Emacsist_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1254905138" target="_blank" title="站长统计">站长统计</a>
+        </span>
+        
+        
+
+    </body></html>

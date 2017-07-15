@@ -1,9 +1,9 @@
 #+tags：future(f),normal(n),important(i)
-#+title:记录Emacs的相关内容
-#+author:一个菜鸟
-#+date:2016/01/13 22:36:21
-#+email:xxxx@xxx.xxx
-#+keywords:Emacs,org
+#+title: 记录Emacs的相关内容
+#+author: 一个菜鸟
+#+date: 2016/01/13 22:36:21
+#+email: xxxx@xxx.xxx
+#+keywords: Emacs,org
 #+startup: overview
 
 ** 中英文

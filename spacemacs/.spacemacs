@@ -29,7 +29,7 @@ values."
      better-defaults
      ;;emacs-lisp
      ;;git
-     ;;markdown
+     markdown
      org
      ;;(shell :variables
      ;;       shell-default-height 30
@@ -43,7 +43,7 @@ values."
      ;;erc
      ibuffer
      ;;chinese
-     python
+     ;;python
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -277,6 +277,8 @@ you should place you code here."
 	;;org配置
 	;;(setq org-toggle-inline-images t)
 	;;(setq org-image-actual-width 20)
+  ;; org-mode 自动换行
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (global-flycheck-mode)
   ;; org-mode中加入几种状态 C-c C-t可以选择 ，叹号表示嵌入时间,@表示需要写说明
@@ -288,7 +290,12 @@ you should place you code here."
   (setq tern-command '("node" "C:/Users/zh/AppData/Roaming/npm/node_modules/tern/bin/tern"))
 
   ;; 博客配置
-  ;;(require 'ox-publish)
+  ;; see org-html-style-default
+  (setq org-html-head-include-default-style nil)
+
+  ;; see org-html-scripts
+  (setq org-html-head-include-scripts nil)
+  (setq org-html-htmlize-output-type 'css)
   (setq org-publish-project-alist '(
                                     ("pages"
                                      :base-directory "f:/github/publish/src/"
@@ -306,6 +313,8 @@ you should place you code here."
                                      ;;:sitemap-title "Sitemap"         ; ... with title 'Sitemap'.
                                      ;;:sitemap-sort-files anti-chronologically ; 文件从新到旧
                                      ;;:sitemap-file-entry-format "%d %t"  ; 事件+标题生成sitemap
+                                     :html-head-include-default-style nil
+                                     :html-head-include-default-scripts nil
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
                                      )
                                     ("blog"
@@ -317,8 +326,11 @@ you should place you code here."
                                      :headline-levels 4             ; Just the default for this project.
                                      :auto-preamble t
                                      :section-numbers nil
+                                     :style-include-default nil
                                      :author "zhangheng"
                                      :email "zhangheng2683@gmail.com"
+                                     :html-head-include-default-style nil
+                                     :html-head-include-default-scripts nil
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("static"

@@ -325,7 +325,7 @@ you should place your code here."
 
   ;; org-mode中加入几种状态 C-c C-t可以选择 ，叹号表示嵌入时间,@表示需要写说明
 	(setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n!)" "SOMEDAY(s!)" "HANGUP(h@/!)" "|" "DONE(d@/!)" "CANCELED(c@/!)")))
+        '((sequence "todo(t)" "next(n!)" "someday(s!)" "hangup(h@/!)" "|" "done(d@/!)" "canceled(c@/!)")))
   (setq org-bullets-bullet-list '("☆" "△" "◁" "▷"))
 
   (global-company-mode t)
@@ -352,7 +352,8 @@ you should place your code here."
   ;;       erc-log-write-after-insert t)
 
   ;; my kbd
-  ;; (global-set-key (kbd "C-x j") 'json-pretty-print)
+  (global-set-key (kbd "C-x C-o") 'ace-window)
+
 
   ;; 博客配置
   ;; see org-html-style-default

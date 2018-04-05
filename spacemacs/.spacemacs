@@ -2,6 +2,7 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -43,8 +44,10 @@ values."
      org
      clojure
      erc
+     ;;git
      (javascript :variables tern-command '("node" "C:/Users/zh/AppData/Roaming/npm/node_modules/tern/bin/tern"))
      html
+     sql
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -54,7 +57,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '( evil-unimpaired )
+   dotspacemacs-excluded-packages '(evil-unimpaired)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -327,6 +330,18 @@ you should place your code here."
 	(setq org-todo-keywords
         '((sequence "todo(t)" "next(n!)" "someday(s!)" "hangup(h@/!)" "|" "done(d@/!)" "canceled(c@/!)")))
   (setq org-bullets-bullet-list '("☆" "△" "◁" "▷"))
+  ;; 优先级范围和默认任务的优先级
+  (setq org-highest-priority ?A)
+  (setq org-lowest-priority  ?E)
+  (setq org-default-priority ?E)
+  ;; 优先级外观
+  (setq org-priority-faces
+        '((?A . (:background "red" :foreground "white" :weight bold))
+          (?B . (:background "DarkOrange" :foreground "white" :weight bold))
+          (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
+          (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
+          (?E . (:background "SkyBlue" :foreground "black" :weight bold))
+          ))
 
   (global-company-mode t)
 
@@ -341,7 +356,7 @@ you should place your code here."
              :nick "zh2683" :password "594542356."))
   ;; 自动加入频道
   (defconst irc-channels
-    '(("freenode.net" "#emacs" "##Orz" "##g")))
+    '(("freenode.net" "#emacs" "##g")))
   (ignore-errors (setq erc-autojoin-channels-alist irc-channels))
   ;; 忽略消息
   (setq erc-ignore-list nil)
@@ -431,7 +446,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode unfill org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim macrostep htmlize gnuplot fuzzy erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks elisp-slime-nav company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider queue clojure-mode auto-yasnippet yasnippet auto-compile packed ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-window ace-link))))
+    (sql-indent smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode unfill org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim macrostep htmlize gnuplot fuzzy erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks elisp-slime-nav company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider queue clojure-mode auto-yasnippet yasnippet auto-compile packed ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-window ace-link))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

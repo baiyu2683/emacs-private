@@ -2,7 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -39,13 +38,19 @@ values."
      ;; ----------------------------------------------------------------
      ivy
      auto-completion
-     better-defaults
+     ;; better-defaults
      emacs-lisp
+     ;; git
+     markdown
      org
-     clojure
-     erc
-     ;;git
-     (javascript :variables tern-command '("node" "C:/Users/zh/AppData/Roaming/npm/node_modules/tern/bin/tern"))
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     ;; spell-checking
+     syntax-checking
+     ;; version-control
+     (python :variables python-fill-column 99)
+     javascript
      html
      sql
      )
@@ -57,7 +62,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(evil-unimpaired)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -125,21 +130,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(leuven
-                         spacemacs-dark
+   dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   ;; dotspacemacs-default-font '("Source Code Pro"
-   ;;                             :size 13
-   ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.1)
-   dotspacemacs-default-font '("文泉驿等宽正黑"
-                               :size 20
-                               :weight medium
+   dotspacemacs-default-font '("WenQuanYi Zen Hei Mono Medium"
+                               :size 24
+                               :weight normal
                                :width normal
                                :powerline-scale 1.1)
    ;; The leader key
@@ -305,12 +304,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; https://github.com/syl20bnr/spacemacs/issues/2705
-  ;; (setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+          ("gnu-cn" . "http://elpa.emacs-china.org/gnu/")))
   )
 
 (defun dotspacemacs/user-config ()
@@ -356,7 +353,7 @@ you should place your code here."
              :nick "zh2683" :password "594542356."))
   ;; 自动加入频道
   (defconst irc-channels
-    '(("freenode.net" "#emacs" "##g")))
+    '(("freenode.net" "#emacs" "##g" "#python")))
   (ignore-errors (setq erc-autojoin-channels-alist irc-channels))
   ;; 忽略消息
   (setq erc-ignore-list nil)
@@ -378,9 +375,9 @@ you should place your code here."
   (setq org-html-htmlize-output-type 'css)
   (setq org-publish-project-alist '(
                                     ("blog"
-                                     :base-directory "f:/github/publish/src/blog/"
+                                     :base-directory "~/github/publish/src/blog/"
                                      :base-extension "org"
-                                     :publishing-directory "f:/github/publish/blog/"
+                                     :publishing-directory "~/github/publish/blog/"
                                      :recursive t
                                      :publishing-function org-html-publish-to-html
                                      :headline-levels 4             ; Just the default for this project.
@@ -394,9 +391,9 @@ you should place your code here."
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("journals"
-                                     :base-directory "f:/github/publish/src/journals/"
+                                     :base-directory "~/github/publish/src/journals/"
                                      :base-extension "org"
-                                     :publishing-directory "f:/github/publish/journals/"
+                                     :publishing-directory "~/github/publish/journals/"
                                      :recursive t
                                      :publishing-function org-html-publish-to-html
                                      :headline-levels 4             ; Just the default for this project.
@@ -410,9 +407,9 @@ you should place your code here."
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("src"
-                                     :base-directory "f:/github/publish/src/"
+                                     :base-directory "~/github/publish/src/"
                                      :base-extension "org"
-                                     :publishing-directory "f:/github/publish/"
+                                     :publishing-directory "~/github/publish/"
                                      :recursive nil
                                      :publishing-function org-html-publish-to-html
                                      :headline-levels 4             ; Just the default for this project.
@@ -425,16 +422,14 @@ you should place your code here."
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
                                      )
                                     ;; ("static"
-                                    ;;  :base-directory "f:/github/publish/src/"
+                                    ;;  :base-directory "~/github/publish/src/"
                                     ;;  :base-extension "css|js|png|jpg|gif|pdf|mp3|ogg|swf"
-                                    ;;  :publishing-directory "f:/github/blog/public_html/"
+                                    ;;  :publishing-directory "~/github/blog/public_html/"
                                     ;;  :recursive t
                                     ;;  :publishing-function org-publish-attachment
                                     ;;  )
                                     ("publish" :components ("journals" "blog" "src"))
-                                    ))
-
-
+))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -446,7 +441,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (sql-indent smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode unfill org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download mwim macrostep htmlize gnuplot fuzzy erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks elisp-slime-nav company-statistics company clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider queue clojure-mode auto-yasnippet yasnippet auto-compile packed ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-window ace-link))))
+    (yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

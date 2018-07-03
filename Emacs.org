@@ -291,3 +291,19 @@ org默认不显示图片
 或者配置文件中配置(setq org-toggle-inline-images t)
   [[file:1.jpg]]
 
+** 从源码编译安装emacs
+
+#+BEGIN_QUOTE
+# 安装所需要的库
+sudo apt-get install --assume-yes build-essential libncurses5-dev
+sudo apt-get install --assume-yes libgif-dev libxpm-dev
+sudo apt-get install --assume-yes libtiff5-dev
+sudo apt-get install --assume-yes libxml2-dev
+sudo apt-get install --assume-yes libgnutls28-dev
+# 编译
+cd emacs-26.1
+./configure
+make
+sudo make install
+#+END_QUOTE
+

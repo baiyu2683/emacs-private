@@ -37,17 +37,17 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ivy
+     org
      auto-completion
      ;; better-defaults
      emacs-lisp
      ;; git
      markdown
-     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     ;; syntax-checking
      ;; version-control
      (python :variables python-fill-column 99)
      javascript
@@ -62,7 +62,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(evil-ediff)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -136,7 +136,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("WenQuanYi Zen Hei Mono Medium"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 24
                                :weight normal
                                :width normal
@@ -317,33 +317,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;;org配置
-	(setq org-toggle-inline-images t)
-	(setq org-image-actual-width 20)
-  ;; org-mode 自动换行
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-
-  ;; org-mode中加入几种状态 C-c C-t可以选择 ，叹号表示嵌入时间,@表示需要写说明
-	(setq org-todo-keywords
-        '((sequence "todo(t)" "next(n!)" "someday(s!)" "hangup(h@/!)" "|" "done(d@/!)" "canceled(c@/!)")))
-  (setq org-bullets-bullet-list '("☆" "△" "◁" "▷"))
-  ;; 优先级范围和默认任务的优先级
-  (setq org-highest-priority ?A)
-  (setq org-lowest-priority  ?E)
-  (setq org-default-priority ?E)
-  ;; 优先级外观
-  (setq org-priority-faces
-        '((?A . (:background "red" :foreground "white" :weight bold))
-          (?B . (:background "DarkOrange" :foreground "white" :weight bold))
-          (?C . (:background "yellow" :foreground "DarkGreen" :weight bold))
-          (?D . (:background "DodgerBlue" :foreground "black" :weight bold))
-          (?E . (:background "SkyBlue" :foreground "black" :weight bold))
-          ))
-
+  ;; 全局补全
   (global-company-mode t)
-
-  ;; clojure
-  (setq clojure-enable-fancify-symbols t)
 
   ;;erc
   (defun start-erc ()
@@ -363,11 +338,10 @@ you should place your code here."
   ;;       erc-log-write-after-send t
   ;;       erc-log-write-after-insert t)
 
-  ;; my kbd
+  ;; 切换窗口
   (global-set-key (kbd "C-x C-o") 'ace-window)
 
-
-  ;; 博客配置
+    ;; 博客配置
   ;; see org-html-style-default
   (setq org-html-head-include-default-style nil)
   ;; see org-html-scripts
@@ -375,9 +349,9 @@ you should place your code here."
   (setq org-html-htmlize-output-type 'css)
   (setq org-publish-project-alist '(
                                     ("blog"
-                                     :base-directory "~/github/publish/src/blog/"
+                                     :base-directory "~/Projects/zhangheng2683.github.io/src/blog/"
                                      :base-extension "org"
-                                     :publishing-directory "~/github/publish/blog/"
+                                     :publishing-directory "~/Projects/zhangheng2683.github.io/blog/"
                                      :recursive t
                                      :publishing-function org-html-publish-to-html
                                      :headline-levels 4             ; Just the default for this project.
@@ -391,9 +365,9 @@ you should place your code here."
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("journals"
-                                     :base-directory "~/github/publish/src/journals/"
+                                     :base-directory "~/Projects/zhangheng2683.github.io/src/journals/"
                                      :base-extension "org"
-                                     :publishing-directory "~/github/publish/journals/"
+                                     :publishing-directory "~/Projects/zhangheng2683.github.io/journals/"
                                      :recursive t
                                      :publishing-function org-html-publish-to-html
                                      :headline-levels 4             ; Just the default for this project.
@@ -407,9 +381,9 @@ you should place your code here."
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("src"
-                                     :base-directory "~/github/publish/src/"
+                                     :base-directory "~/Projects/zhangheng2683.github.io/src/"
                                      :base-extension "org"
-                                     :publishing-directory "~/github/publish/"
+                                     :publishing-directory "~/Projects/zhangheng2683.github.io/"
                                      :recursive nil
                                      :publishing-function org-html-publish-to-html
                                      :headline-levels 4             ; Just the default for this project.
@@ -429,7 +403,8 @@ you should place your code here."
                                     ;;  :publishing-function org-publish-attachment
                                     ;;  )
                                     ("publish" :components ("journals" "blog" "src"))
-))
+                                    )
+        )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -441,7 +416,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy flycheck-pos-tip pos-tip flycheck emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f dash s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed async aggressive-indent adaptive-wrap ace-window ace-link avy))))
+    (yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

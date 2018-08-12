@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
-   ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
+   ;; and `nil'. `unused' will lazy install only unused layers (i.e. layer/issues/2669s
    ;; not listed in variable `dotspacemacs-configuration-layers'), `all' will
    ;; lazy install any layer that support lazy installation even the layers
    ;; listed in `dotspacemacs-configuration-layers'. `nil' disable the lazy
@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -39,17 +40,20 @@ values."
      ivy
      org
      auto-completion
-     ;; better-defaults
+     better-defaults
      emacs-lisp
      ;; git
      markdown
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
+     syntax-checking
      ;; version-control
-     (python :variables python-fill-column 99)
+     (python :variables
+             python-fill-column 99
+             python-enable-yapf-format-on-save t)
      javascript
      html
      sql
@@ -130,8 +134,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(
+                         spacemacs-light
+                         spacemacs-dark
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -263,7 +269,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -320,6 +326,18 @@ you should place your code here."
   ;; 全局补全
   (global-company-mode t)
 
+  (global-set-key (kbd "C-+") 'mc/mark-next-like-this)
+  (bind-key* "C-=" 'er/expand-region)
+
+  ;; A-> 中alt + shift 莫名奇妙被系统占用了...无语
+  (global-set-key (kbd "C-<") 'beginning-of-buffer)
+  (global-set-key (kbd "C->") 'end-of-buffer)
+
+
+  (setq tab-width 4)
+  (set-variable 'python-indent-offset 4)
+  (set-variable 'python-indent-guess-indent-offset nil)
+
   ;;erc
   (defun start-erc ()
     "Connect to IRC"
@@ -348,7 +366,7 @@ you should place your code here."
   (setq org-html-head-include-scripts nil)
   (setq org-html-htmlize-output-type 'css)
   (setq org-publish-project-alist '(
-                                    ("blog"
+                                    ("文章"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/blog/"
                                      :base-extension "org"
                                      :publishing-directory "~/Projects/zhangheng2683.github.io/blog/"
@@ -364,7 +382,7 @@ you should place your code here."
                                      :html-head-include-default-scripts nil
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
-                                    ("journals"
+                                    ("日记"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/journals/"
                                      :base-extension "org"
                                      :publishing-directory "~/Projects/zhangheng2683.github.io/journals/"
@@ -380,7 +398,7 @@ you should place your code here."
                                      :html-head-include-default-scripts nil
                                      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
-                                    ("src"
+                                    ("源码"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/"
                                      :base-extension "org"
                                      :publishing-directory "~/Projects/zhangheng2683.github.io/"
@@ -402,7 +420,7 @@ you should place your code here."
                                     ;;  :recursive t
                                     ;;  :publishing-function org-publish-attachment
                                     ;;  )
-                                    ("publish" :components ("journals" "blog" "src"))
+                                    ("publish" :components ("日记" "文章" "源码"))
                                     )
         )
   )
@@ -416,7 +434,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link))))
+    (yaml-mode unfill mwim flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

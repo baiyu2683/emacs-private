@@ -31,7 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -42,7 +41,7 @@ values."
      auto-completion
      better-defaults
      emacs-lisp
-     ;; git
+     git
      markdown
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -54,9 +53,11 @@ values."
      (python :variables
              python-fill-column 99
              python-enable-yapf-format-on-save t)
+     ipython-notebook
      javascript
      html
      sql
+     yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -380,7 +381,10 @@ you should place your code here."
                                      :email "zhangheng2683@gmail.com"
                                      :html-head-include-default-style nil
                                      :html-head-include-default-scripts nil
-                                     :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
+                                     :html-head "<meta name=\"baidu-site-verification\" content=\"ZQunECQdSr\" />
+<meta name=\"keywords\" content=\"zh2683, java, python, linux, shell\"/>
+<meta name=\"description\" content=\"zh2683, java, python, linux, shell\"/>
+<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
                                      )
                                     ("日记"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/journals/"
@@ -396,7 +400,10 @@ you should place your code here."
                                      :email "zhangheng2683@gmail.com"
                                      :html-head-include-default-style nil
                                      :html-head-include-default-scripts nil
-                                     :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
+                                     :html-head "<meta name=\"baidu-site-verification\" content=\"ZQunECQdSr\" />
+<meta name=\"keywords\" content=\"zh2683, java, python, linux, shell\"/>
+<meta name=\"description\" content=\"zh2683, java, python, linux, shell\"/>
+<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
                                      )
                                     ("源码"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/"
@@ -411,7 +418,10 @@ you should place your code here."
                                      :email "zhangheng2683@gmail.com"
                                      :html-head-include-default-style nil
                                      :html-head-include-default-scripts nil
-                                     :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
+                                     :html-head "<meta name=\"baidu-site-verification\" content=\"ZQunECQdSr\" />
+<meta name=\"keywords\" content=\"zh2683, java, python, linux, shell\"/>
+<meta name=\"description\" content=\"zh2683, java, python, linux, shell\"/>
+<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
                                      )
                                     ;; ("static"
                                     ;;  :base-directory "~/github/publish/src/"
@@ -434,7 +444,8 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode unfill mwim flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link))))
+    (ein request-deferred websocket deferred smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor yaml-mode unfill mwim flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
+ '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

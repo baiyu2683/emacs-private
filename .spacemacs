@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
-   ;; and `nil'. `unused' will lazy install only unused layers (i.e. layer/issues/2669s
+   ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
    ;; not listed in variable `dotspacemacs-configuration-layers'), `all' will
    ;; lazy install any layer that support lazy installation even the layers
    ;; listed in `dotspacemacs-configuration-layers'. `nil' disable the lazy
@@ -36,28 +36,36 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ivy
      org
-     auto-completion
+     ivy
+     ;; helm
+     (auto-completion :variables auto-completion-enable-sort-by-usage t
+                      auto-completion-enable-snippets-in-popup t
+                      :disabled-for org markdown)
      better-defaults
      emacs-lisp
      git
-     markdown
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     org
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
      syntax-checking
      ;; version-control
      (python :variables
              python-fill-column 99
-             python-enable-yapf-format-on-save t)
+             python-format-on-save t
+             python-formatter 'yapf)
      ipython-notebook
      javascript
      html
      sql
      yaml
+     markdown
+     ;; lsp
+     ;; (java :variables
+     ;;       java-backend 'lsp)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -67,7 +75,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(evil-ediff)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -94,7 +102,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-timeout 600
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -110,7 +118,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'emacs
+   dotspacemacs-editing-style 'emacs 
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -135,15 +143,17 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
+   dotspacemacs-themes '(doom-one
+                         solarized-dark
+                         zenburn
+                         leuven
                          spacemacs-light
-                         spacemacs-dark
-                         )
+                         spacemacs-dark)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Hack Bold"
                                :size 24
                                :weight normal
                                :width normal
@@ -270,7 +280,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -311,10 +321,13 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-          ("org-cn"   . "http://elpa.emacs-china.org/org/")
-          ("gnu-cn" . "http://elpa.emacs-china.org/gnu/")))
+	(setq configuration-layer--elpa-archives
+		'(
+		 ("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+		 ("org-cn" . "http://elpa.emacs-china.org/org/")
+		 ("gnu-cn" . "http://elpa.emacs-china.org/gnu/")
+		)
+	)
   )
 
 (defun dotspacemacs/user-config ()
@@ -324,6 +337,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'org-tempo)
   ;; 全局补全
   (global-company-mode t)
 
@@ -334,17 +348,17 @@ you should place your code here."
   (global-set-key (kbd "C-<") 'beginning-of-buffer)
   (global-set-key (kbd "C->") 'end-of-buffer)
 
-
-  (setq tab-width 4)
-  (set-variable 'python-indent-offset 4)
-  (set-variable 'python-indent-guess-indent-offset nil)
+  (custom-set-variables
+   '(python-indent-offset 4)
+   '(python-indent-guess-indent-offset-verbose nil)
+   '(tab-width 4))
 
   ;;erc
   (defun start-erc ()
     "Connect to IRC"
     (interactive)
     (erc-tls :server "irc.freenode.net" :port 6697
-             :nick "zh2683" :password "594542356."))
+             :nick "nick" :password "password"))
   ;; 自动加入频道
   (defconst irc-channels
     '(("freenode.net" "#emacs" "##g" "#python")))
@@ -384,7 +398,7 @@ you should place your code here."
                                      :html-head "<meta name=\"baidu-site-verification\" content=\"ZQunECQdSr\" />
 <meta name=\"keywords\" content=\"zh2683, java, python, linux, shell\"/>
 <meta name=\"description\" content=\"zh2683, java, python, linux, shell\"/>
-<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
+<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("日记"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/journals/"
@@ -403,7 +417,7 @@ you should place your code here."
                                      :html-head "<meta name=\"baidu-site-verification\" content=\"ZQunECQdSr\" />
 <meta name=\"keywords\" content=\"zh2683, java, python, linux, shell\"/>
 <meta name=\"description\" content=\"zh2683, java, python, linux, shell\"/>
-<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/site.css\"/>"
+<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/site.css\"/>"
                                      )
                                     ("源码"
                                      :base-directory "~/Projects/zhangheng2683.github.io/src/"
@@ -432,7 +446,8 @@ you should place your code here."
                                     ;;  )
                                     ("publish" :components ("日记" "文章" "源码"))
                                     )
-        )
+	)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -444,8 +459,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ein request-deferred websocket deferred smeargle orgit magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor yaml-mode unfill mwim flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck auto-dictionary yapfify web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode htmlize haml-mode gnuplot gh-md fuzzy emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
- '(send-mail-function (quote smtpmail-send-it)))
+    (highlight packed async f s avy popup wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy yapfify yaml-mode xterm-color web-mode web-beautify unfill tagedit sql-indent smeargle slim-mode shell-pop scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term mmm-mode markdown-toc magit-gitflow magit-popup livid-mode live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js-doc hy-mode htmlize helm-pydoc helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit transient git-commit with-editor eshell-z eshell-prompt-extras esh-help emmet-mode ein skewer-mode markdown-mode polymode deferred websocket js2-mode simple-httpd cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda company coffee-mode auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree adaptive-wrap evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-escape eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

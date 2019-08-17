@@ -307,3 +307,8 @@ make
 sudo make install
 #+END_QUOTE
 
+** 统计emacs启动时间等信息
+   emacs --timed-requires --profile
+
+   加参数，--timed-requires会新建load-time buffer显示大于0.15s加载时间的组件
+          --profile在emacs启动之后等一会儿会自动打开显示cpu和内存占用的buffer

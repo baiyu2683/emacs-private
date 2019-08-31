@@ -312,3 +312,14 @@ sudo make install
 
    加参数，--timed-requires会新建load-time buffer显示大于0.15s加载时间的组件
           --profile在emacs启动之后等一会儿会自动打开显示cpu和内存占用的buffer
+** mypy检查python文件，第三方包提示不存在
+
+  在项目根目录下面增加名称为mypy.ini的文件，内容如下
+
+  #+begin_src text
+    [mypy]
+    ignore_missing_imports = True
+  #+end_src
+   
+  [[https://mypy.readthedocs.io/en/latest/config_file.html][mypy配置文件说明]]
+
